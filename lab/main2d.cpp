@@ -7,8 +7,8 @@ const int N = 100 + 2;
 
 int minfrac = 0;
 int maxfrac = 100;
-int minsize = 11+2;
-int maxsize = 20+2;
+int minsize = 50+2;
+int maxsize = 50+2;
 
 void fix(int state[N][N], int K) {
     for (int i = 1; i < K - 1; i++)
@@ -87,7 +87,7 @@ void setup(int state[N][N], int K, int frac, std::uniform_int_distribution<int> 
 }
 
 int main() {
-    std::ofstream myfile("experiment5.csv", std::ios_base::app);
+    std::ofstream myfile("huge-field.csv", std::ios_base::app);
     std::uniform_int_distribution<int> distr(0, 3);
 
     int state[N][N] = {0};//generates a square array that's 2 elements wider than the crystal in each direction
@@ -106,8 +106,8 @@ int main() {
                 myfile << time << ';';
             }
             myfile << '\n';
+            std::cout<<frac<<'\n';
         }
-        std::cout<<size-2<<'\n';
     }
     myfile.close();
     return 0;
