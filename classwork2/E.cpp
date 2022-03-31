@@ -7,13 +7,13 @@ int main()
 {
     int maxi=-1000000001;
     int counter=1;
-    while(b!=0){
-        cin>>b;
-        if (i==maxi){
+    int b=1;
+    while(cin>>b){
+        if (b==maxi){
             counter++;
         }
-        if (i>maxi){
-            maxi=i;
+        if (b>maxi){
+            maxi=b;
             counter=1;
         }
     }
