@@ -1,187 +1,64 @@
 #include <iostream>
+#include <cstring>
 
-struct Node{
-    int field;
-    Node* next;
-    Node(){
-        field=0;
+struct Snode{
+    char field[20];
+    Snode* next;
+    Snode(char* name){
+        std::strcpy(field, name);
         next=nullptr;
-    }
-    Node(int f, Node* n){
-        field=f;
-        next = n;
-    }
-
-    void print(){
-        std::cout<<field;
     }
 };
 
-struct List {
-    Node* head_ptr;
+struct Loop{
+    Snode* first=nullptr;
+    Snode* last=nullptr;
+    Snode* cur=nullptr;
 
-    List(){
-        head_ptr=nullptr;
+    void Append(char* field){
+        Snode* app = new Snode(field);
+        if(last!=nullptr) last->next=app;
+        else first=app;
+        last=app;
     }
 
-    void append(int value) {
-        Node *current = head_ptr;
-        Node *prev = nullptr;
-        while (current != nullptr) {
-            prev = current;
-            current = current->next;
-        }
-        if (prev == nullptr) {
-            Node *tmp = new Node;
-            head_ptr = tmp;
-            head_ptr->field = value;
-            return;
-        }
-        prev->next = new Node;
-        prev->next->field = value;
+    void Finish(){
+        last->next=first;
+        cur=last;
     }
 
-    void add(int value, int index) {
-        if (index == 0) {
-            Node *tmp = new Node;
-            tmp->next = head_ptr;
-            tmp->field = value;
-            head_ptr = tmp;
-            return;
-        }
-        int i = 0;
-        Node *current = head_ptr;
-        Node *prev = head_ptr;
+    void Kill(){
+        cur->next = cur->next->next;
+        delete cur->next;
+    }
 
-        while (current != nullptr) {
-            if (i == index) {
-                break;
+    void Step(){
+        cur = cur->next;
+    }
+
+    Snode* Play(int M){
+        while(cur->next!=cur) {
+            for (int i = 0; i < M-1; i++) {
+                Step();
             }
-            prev = current;
-            current = current->next;
-            i++;
+            Kill();
         }
-
-        if (i < index) return;
-        prev->next = new Node;
-        prev->next->field = value;
-        prev->next->next = current;
-    }
-
-    void pop() {
-        Node *current = head_ptr;
-        Node *prev = nullptr;
-        Node *fck = nullptr;
-        while (current != nullptr) {
-            fck = prev;
-            prev = current;
-            current = current->next;
-        }
-        if (fck == nullptr) {
-            Node *tmp = head_ptr;
-            head_ptr = nullptr;
-            delete tmp;
-            return;
-        }
-        fck->next = nullptr;
-        delete prev;
-        return;
-    }
-
-    void print_list() {
-        Node *current = head_ptr;
-        while (current != nullptr) {
-            std::cout << current->field << '\n';
-            current = current->next;
-        }
-    }
-
-    void delete_list() {
-        Node *current = head_ptr;
-        head_ptr = nullptr;
-        while (current != nullptr) {
-            Node *tmp = current->next;
-            delete current;
-            current = tmp;
-        }
-    }
-
-    Node *find_by_value(int value) {
-        Node *current = head_ptr;
-        Node *prev = nullptr;
-        while (current != nullptr) {
-            if (current->field == value) return current;
-            current = current->next;
-        }
-        return nullptr;
-    }
-
-    Node *find_by_index(int index) {
-        Node *current = head_ptr;
-        int i = 0;
-        while (current != nullptr) {
-            if (i == index) return current;
-            current = current->next;
-            i++;
-        }
-        return nullptr;
-    }
-
-    void delete_by_value(int value) {
-        Node *current = head_ptr;
-        Node *prev = nullptr;
-        while (current != nullptr) {
-            if (current->field == value) {
-                if (prev == nullptr) {
-                    head_ptr = current->next;
-                    delete current;
-                    return;
-                }
-                prev->next = current->next;
-                delete current;
-                return;
-            }
-            prev = current;
-            current = current->next;
-        }
-        return;
-    }
-
-    void delete_by_index(int index) {
-        Node *current = head_ptr;
-        Node *prev = nullptr;
-        int i = 0;
-        while (current != nullptr) {
-            if (i == index) {
-                if (prev == nullptr) {
-                    head_ptr = current->next;
-                    delete current;
-                    return;
-                }
-                prev->next = current->next;
-                delete current;
-                return;
-            }
-            prev = current;
-            current = current->next;
-            i++;
-        }
-        return;
-
+        return cur;
     }
 };
 
 int main(){
-    List* a = new List;
-    a->append(1);
-    a->append(3);
-    a->append(5);
-    a->append(7);
-    a->append(9);
-    a->append(11);
-    a->find_by_value(5)->print();
-    a->find_by_index(3)->print();
-    a->pop();
-    a->print_list();
-    a->delete_list();
+    int N;
+    char name[20];
+    Loop A;
+    std::cin>>N;
+    for(int i=0; i<N; i++){
+        std::cin>>name;
+        A.Append(name);
+    }
+    A.Finish();
+    std::cin>>N;
+    std::cout<<A.Play(N)->field;
 }
+
+
