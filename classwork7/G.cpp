@@ -2,14 +2,18 @@
 #include <cstring>
 
 struct atom {
-    char name[20];
+    char name[5];
     int charge;
     int mass;
 
     atom(char *tname, int ch, int m) {
-        for (int i = 0; tname[i] != '\0'; ++i) {
-            name[i] = tname[i];
-        }
+        strcpy(name, tname);
+        charge = ch;
+        mass = m;
+    }
+
+    atom(int ch, int m) {
+        strcpy(name, "NO DATA");
         charge = ch;
         mass = m;
     }
@@ -57,40 +61,53 @@ int main() {
     int N;
     std::cin >> N;
     atom *atoms = new atom[N];
-    char name[20];
-    char reac[20];
+    char tname[6]={'0'};
+    char reac[6]={'0'};
     int charge, mass;
     for (int i = 0; i < N; i++) {
-        std::cin >> name >> charge >> mass;
-        atoms[i] = atom(name, charge, mass);
+        std::cin >> tname >> charge >> mass;
+        atoms[i] = atom(tname, charge, mass);
     }
-    structsort(atoms, 20);
+    structsort(atoms, N);
     int M;
     std::cin >> M;
     for (int j = 0; j < M; j++) {
-        std::cin>>name>>reac;
+        *tname = {'0'};
+        std::cin>>tname>>reac;
+        int reacid=3;
+        if(strcmp(reac, "beta-")==0) reacid=-1;
+        else if (strcmp(reac, "beta+")==0) reacid=1;
+        else if (strcmp(reac, "alpha")==0) reacid=0;
         for (int i = 0; i < N; i++) {
-            if (atoms[i].name == name){
-                switch(reac){
-                    case "beta-":
+            if (strcmp(atoms[i].name, tname)==0){
+                switch(reacid){
+                    case -1:
                         charge=atoms[i].charge+1;
                         mass=atoms[i].mass;
                         break;
-                    case "beta+":
+                    case 1:
                         charge=atoms[i].charge-1;
                         mass=atoms[i].mass;
                         break;
-                    case "alpha:":
-                        charge=atoms[i].charge-2;
-                        mass=atoms[i].mass-4;
+                    case 0:
+                        charge=atoms[i].charge-4;
+                        mass=atoms[i].mass-2;
                         break;
+                    default:
+                        std::cout<<"UNEXPECTED INPUT";
+                        return 0;
                 }
-                atom temp=atom("temp", charge, mass);
+                atom temp=atom(charge, mass);
+                bool found = false;
                 for (int k = 0; k < N; k++) {
-                    if (atoms[k]==temp)
+                    if (atoms[k]==temp){
+                        std::cout<<atoms[k].name<<"\n";
+                        found=true;
+                        break;
+                    }
                 }
+                if (!found) std::cout<<"NO DATA\n";
                 }
         }
     }
-
 }
