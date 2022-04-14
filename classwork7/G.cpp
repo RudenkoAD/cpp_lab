@@ -65,7 +65,7 @@ int main() {
     char reac[6]={'0'};
     int charge, mass;
     for (int i = 0; i < N; i++) {
-        std::cin >> tname >> charge >> mass;
+        std::cin >> tname >> mass >> charge;
         atoms[i] = atom(tname, charge, mass);
     }
     structsort(atoms, N);
