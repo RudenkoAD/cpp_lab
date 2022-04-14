@@ -12,7 +12,9 @@ void gnomesort(int a[N]){
             j = j + 1;
         }
         else{
-            a[i-1], a[i] = a[i], a[i-1];
+            int t=a[i];
+            a[i]=a[i-1];
+            a[i-1]=t;
             i = i - 1;
             if (i == 0){
                 i = j;

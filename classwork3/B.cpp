@@ -10,16 +10,17 @@ int find(int a[N], int target){
     while (i!=j) {
         k = (i+j)/2;
         if (a[k]<target) {
-            if(k==N-1 || k==i){
-                return -1;
-            }
             i = k;
         } else if(a[k]==target){
             return k;
         }
         else {
-            if(k==0) return -1;
             j = k;
+        }
+        if(j-i<=1){
+            if(a[i]==target) return i;
+            if(a[j]==target) return j;
+            return -1;
         }
     }
     return -1;
