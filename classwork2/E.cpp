@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    int maxi=-1000000001;
+    int maxi=-2147483648;
     int counter=1;
     int b=1;
     while(cin>>b){
