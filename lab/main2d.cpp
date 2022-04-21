@@ -7,8 +7,8 @@ const int N = 100 + 2;
 
 int minfrac = 0;
 int maxfrac = 100;
-int minsize = 50+2;
-int maxsize = 50+2;
+int minsize = 50 + 2;
+int maxsize = 50 + 2;
 
 void fix(int state[N][N], int K) {
     for (int i = 1; i < K - 1; i++)
@@ -64,20 +64,20 @@ int step(int state[N][N], int K, std::uniform_int_distribution<int> distr, std::
     return a;
 }//completes a full step of the simulation
 
-void populate(int state[N][N], int K, int frac, std::uniform_int_distribution<int> spawner, std::mt19937 &generator){
-    int numtospawn = (K-2)*(K-2)*frac/100;
-    for (int i=0; i<numtospawn; i++){
+void populate(int state[N][N], int K, int frac, std::uniform_int_distribution<int> spawner, std::mt19937 &generator) {
+    int numtospawn = (K - 2) * (K - 2) * frac / 100;
+    for (int i = 0; i < numtospawn; i++) {
         int a = spawner(generator);
         int b = spawner(generator);
-        if(state[a][b]) i--;
-        state[a][b]=1;
+        if (state[a][b]) i--;
+        state[a][b] = 1;
     }
 }
 
-void setup(int state[N][N], int K, int frac, std::uniform_int_distribution<int> spawner, std::mt19937 &generator){
+void setup(int state[N][N], int K, int frac, std::uniform_int_distribution<int> spawner, std::mt19937 &generator) {
     if (!frac) state[(K - 1) / 2][(K - 1) / 2] = 1;
     else populate(state, K, frac, spawner, generator);
-    for (int i = 0; i <K-1; i++) {
+    for (int i = 0; i < K - 1; i++) {
         state[i][0] = 2;
         state[0][i] = 2;
         state[i][N - 1] = 2;
@@ -91,9 +91,9 @@ int main() {
     std::uniform_int_distribution<int> distr(0, 3);
 
     int state[N][N] = {0};//generates a square array that's 2 elements wider than the crystal in each direction
-    for (int size=minsize; size<=maxsize; size++) {
-        std::uniform_int_distribution<int> spawner(1, size-2);
-        for(int frac=minfrac; frac<=maxfrac; frac++) {
+    for (int size = minsize; size <= maxsize; size++) {
+        std::uniform_int_distribution<int> spawner(1, size - 2);
+        for (int frac = minfrac; frac <= maxfrac; frac++) {
             myfile << "size:" << size - 2 << ';';
             myfile << "frac:" << frac << ';';
             for (int seed = 1; seed < 1000; seed++) {
@@ -106,7 +106,7 @@ int main() {
                 myfile << time << ';';
             }
             myfile << '\n';
-            std::cout<<frac<<'\n';
+            std::cout << frac << '\n';
         }
     }
     myfile.close();

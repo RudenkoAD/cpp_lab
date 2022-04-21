@@ -1,24 +1,25 @@
 #include <iostream>
+
 using namespace std;
 
 enum Status {
-    Stop=0,
-    Continue=100,
-    OK=200,
-    Created=201,
-    Accepted=202,
-    Bad_Request=400,
-    Unauthorized=401,
-    Not_Found=404,
-    Method_Not_Allowed=405,
-    Internal_Server_Error=500,
-    Not_Implemented=501,
-    Bad_Gateway=502,
+    Stop = 0,
+    Continue = 100,
+    OK = 200,
+    Created = 201,
+    Accepted = 202,
+    Bad_Request = 400,
+    Unauthorized = 401,
+    Not_Found = 404,
+    Method_Not_Allowed = 405,
+    Internal_Server_Error = 500,
+    Not_Implemented = 501,
+    Bad_Gateway = 502,
 };
 
-int main(){
+int main() {
     int a;
-    while(cin>>a){
+    while (cin >> a) {
         switch (a) {
             case Status::Stop:
                 return 0;

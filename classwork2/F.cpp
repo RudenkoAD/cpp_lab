@@ -1,11 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+
 using namespace std;
 
-bool erat(int n){
-    for (int i = 2; i<=floor(sqrt(n)); i++){
-        if (!(n%i)){
+bool erat(int n) {
+    for (int i = 2; i <= floor(sqrt(n)); i++) {
+        if (!(n % i)) {
             return false;
         }
     }
@@ -13,13 +14,12 @@ bool erat(int n){
 }
 
 
-int main()
-{
+int main() {
     int n;
-    cin>>n;
-    if (erat(n)){
-        cout<<"YES";
+    cin >> n;
+    if (erat(n)) {
+        cout << "YES";
     } else {
-        cout<<"NO";
+        cout << "NO";
     }
 }

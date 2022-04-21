@@ -1,48 +1,49 @@
 #include <iostream>
 
-struct Node{
+struct Node {
     int field;
-    Node* next;
-    Node* prev;
-    Node(){
-        field=0;
-        next=nullptr;
-        prev=nullptr;
+    Node *next;
+    Node *prev;
+
+    Node() {
+        field = 0;
+        next = nullptr;
+        prev = nullptr;
     }
 
-    Node(int f){
-        field=f;
-        next=nullptr;
-        prev=nullptr;
+    Node(int f) {
+        field = f;
+        next = nullptr;
+        prev = nullptr;
     }
 
-    void print(){
-        std::cout<<field;
+    void print() {
+        std::cout << field;
     }
 };
 
 struct DList {
-    Node* head;
-    Node* tail;
+    Node *head;
+    Node *tail;
 
-    DList(){
-        head=nullptr;
-        tail=nullptr;
+    DList() {
+        head = nullptr;
+        tail = nullptr;
     }
 
     DList(int value) {
         head = new Node;
-        head->field=value;
+        head->field = value;
         head->next = nullptr;
         head->prev = nullptr;
         tail = head;
     }
 
     void append(int value) {
-        Node* tmp = new Node(value);
+        Node *tmp = new Node(value);
         tmp->prev = tail;
         tail->next = tmp;
-        tail=tmp;
+        tail = tmp;
     }
 
     void add(int value, int index) {
@@ -67,22 +68,22 @@ struct DList {
         }
 
         if (i < index) return;
-        if (current==nullptr) {
+        if (current == nullptr) {
             append(value);
             return;
         }
 
-        Node* tmp = new Node(value);
+        Node *tmp = new Node(value);
         tmp->prev = current->prev;
         tmp->next = current;
-        if (current->prev!=nullptr) current->prev->next = tmp;
+        if (current->prev != nullptr) current->prev->next = tmp;
         current->prev = tmp;
     }
 
     void pop() {
-        Node* tmp=tail->prev;
+        Node *tmp = tail->prev;
         delete tail;
-        tail=tmp;
+        tail = tmp;
         return;
     }
 
@@ -128,15 +129,15 @@ struct DList {
         Node *current = head;
         while (current != nullptr) {
             if (current->field == value) {
-                if (current->prev!=nullptr){
-                    current->prev->next=current->next;
+                if (current->prev != nullptr) {
+                    current->prev->next = current->next;
                 } else {
-                    head=current->next;
+                    head = current->next;
                 }
-                if (current->next!=nullptr){
-                    current->next->prev=current->prev;
+                if (current->next != nullptr) {
+                    current->next->prev = current->prev;
                 } else {
-                    tail=current->prev;
+                    tail = current->prev;
                 }
                 delete current;
                 return;
@@ -151,15 +152,15 @@ struct DList {
         int i = 0;
         while (current != nullptr) {
             if (i == index) {
-                if (current->prev!=nullptr){
-                    current->prev->next=current->next;
+                if (current->prev != nullptr) {
+                    current->prev->next = current->next;
                 } else {
-                    head=current->next;
+                    head = current->next;
                 }
-                if (current->next!=nullptr){
-                    current->next->prev=current->prev;
+                if (current->next != nullptr) {
+                    current->next->prev = current->prev;
                 } else {
-                    tail=current->prev;
+                    tail = current->prev;
                 }
                 delete current;
                 return;
@@ -171,10 +172,10 @@ struct DList {
 
     }
 
-    int size(){
-        int i=0;
-        Node* cur=head;
-        while(cur!=nullptr){
+    int size() {
+        int i = 0;
+        Node *cur = head;
+        while (cur != nullptr) {
             i++;
             cur = cur->next;
         }
@@ -182,8 +183,8 @@ struct DList {
     }
 };
 
-int main(){
-    DList* a = new DList;
+int main() {
+    DList *a = new DList;
     a->append(1);
     a->append(3);
     a->append(5);

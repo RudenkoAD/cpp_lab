@@ -2,16 +2,15 @@
 
 using namespace std;
 
-double riad(double n){
-    if (n==1){
+double riad(double n) {
+    if (n == 1) {
         return 1;
     }
-    return (riad(n-1)+(1/n/n));
+    return (riad(n - 1) + (1 / n / n));
 }
 
-int main()
-{
+int main() {
     int n;
-    cin>>n;
-    cout<<riad(n);
+    cin >> n;
+    cout << riad(n);
 }

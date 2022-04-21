@@ -1,16 +1,16 @@
 #include <iostream>
 
-int counter(){
+int counter() {
     static int a = 0;
     a++;
     return a;
 }
 
-int main(){
-    std::cout<<counter();
-    std::cout<<counter();
-    std::cout<<counter();
-    std::cout<<counter();
-    std::cout<<counter();
-    std::cout<<counter();
+int main() {
+    std::cout << counter();
+    std::cout << counter();
+    std::cout << counter();
+    std::cout << counter();
+    std::cout << counter();
+    std::cout << counter();
 }

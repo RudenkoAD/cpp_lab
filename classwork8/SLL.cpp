@@ -1,26 +1,29 @@
 #include <iostream>
 
-struct Node{
+struct Node {
     int field;
-    Node* next;
-    Node(){
-        field=0;
-        next=nullptr;
+    Node *next;
+
+    Node() {
+        field = 0;
+        next = nullptr;
     }
-    Node(int f, Node* n){
-        field=f;
+
+    Node(int f, Node *n) {
+        field = f;
         next = n;
     }
-    void print(){
-        std::cout<<field;
+
+    void print() {
+        std::cout << field;
     }
 };
 
 struct List {
-    Node* head_ptr;
+    Node *head_ptr;
 
-    List(){
-        head_ptr=nullptr;
+    List() {
+        head_ptr = nullptr;
     }
 
     void append(int value) {
